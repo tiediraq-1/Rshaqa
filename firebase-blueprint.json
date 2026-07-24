@@ -1,0 +1,156 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile data stored under /users/{userId}",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "photoUrl": { "type": "string" },
+        "age": { "type": "number" },
+        "gender": { "type": "string" },
+        "heightCm": { "type": "number" },
+        "currentWeightKg": { "type": "number" },
+        "startingWeightKg": { "type": "number" },
+        "targetWeightKg": { "type": "number" },
+        "weeklyGoalKg": { "type": "number" },
+        "activityLevel": { "type": "string" },
+        "dietType": { "type": "string" },
+        "dailyCalorieGoal": { "type": "number" },
+        "proteinGoalG": { "type": "number" },
+        "carbsGoalG": { "type": "number" },
+        "fatsGoalG": { "type": "number" },
+        "waterGoalMl": { "type": "number" },
+        "streakDays": { "type": "number" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["name", "email"]
+    },
+    "MealLogEntry": {
+      "title": "MealLogEntry",
+      "description": "Daily food log item",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "date": { "type": "string" },
+        "mealType": { "type": "string" },
+        "foodName": { "type": "string" },
+        "portionGrams": { "type": "number" },
+        "calories": { "type": "number" },
+        "protein": { "type": "number" },
+        "carbs": { "type": "number" },
+        "fats": { "type": "number" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["id", "foodName", "calories", "mealType", "date"]
+    },
+    "WeightEntry": {
+      "title": "WeightEntry",
+      "description": "Recorded weight entry",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "date": { "type": "string" },
+        "weightKg": { "type": "number" },
+        "waistCm": { "type": "number" },
+        "hipsCm": { "type": "number" },
+        "chestCm": { "type": "number" },
+        "notes": { "type": "string" }
+      },
+      "required": ["id", "date", "weightKg"]
+    },
+    "WorkoutLog": {
+      "title": "WorkoutLog",
+      "description": "Logged exercise session",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "date": { "type": "string" },
+        "exerciseType": { "type": "string" },
+        "durationMinutes": { "type": "number" },
+        "intensity": { "type": "string" },
+        "caloriesBurned": { "type": "number" },
+        "notes": { "type": "string" }
+      },
+      "required": ["id", "date", "exerciseType", "caloriesBurned"]
+    },
+    "MoodLog": {
+      "title": "MoodLog",
+      "description": "Logged mood and energy",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "date": { "type": "string" },
+        "mood": { "type": "string" },
+        "energyLevel": { "type": "number" },
+        "stressLevel": { "type": "number" },
+        "notes": { "type": "string" }
+      },
+      "required": ["id", "date", "mood"]
+    },
+    "FoodItem": {
+      "title": "FoodItem",
+      "description": "Food in user or global library",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "calories": { "type": "number" },
+        "protein": { "type": "number" },
+        "carbs": { "type": "number" },
+        "fats": { "type": "number" },
+        "servingUnit": { "type": "string" },
+        "servingSizeGrams": { "type": "number" },
+        "isCustom": { "type": "boolean" }
+      },
+      "required": ["id", "name", "calories"]
+    },
+    "CommunityPost": {
+      "title": "CommunityPost",
+      "description": "Community recipes and posts",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "authorName": { "type": "string" },
+        "authorAvatar": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "likesCount": { "type": "number" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["id", "authorName", "title", "content"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "User profile document"
+    },
+    "/users/{userId}/mealLogs/{logId}": {
+      "schema": { "$ref": "#/entities/MealLogEntry" },
+      "description": "Meal entries logged by user"
+    },
+    "/users/{userId}/weightHistory/{entryId}": {
+      "schema": { "$ref": "#/entities/WeightEntry" },
+      "description": "Weight entries logged by user"
+    },
+    "/users/{userId}/workoutLogs/{logId}": {
+      "schema": { "$ref": "#/entities/WorkoutLog" },
+      "description": "Workout logs for user"
+    },
+    "/users/{userId}/moodLogs/{logId}": {
+      "schema": { "$ref": "#/entities/MoodLog" },
+      "description": "Mood logs for user"
+    },
+    "/users/{userId}/foodDatabase/{foodId}": {
+      "schema": { "$ref": "#/entities/FoodItem" },
+      "description": "Custom food items for user"
+    },
+    "/communityPosts/{postId}": {
+      "schema": { "$ref": "#/entities/CommunityPost" },
+      "description": "Global community posts"
+    }
+  }
+}
